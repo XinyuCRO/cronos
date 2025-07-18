@@ -912,8 +912,8 @@ github.com/crypto-org-chain/cosmos-sdk/store v0.0.0-20241217090828-cfbca9fe8254 
 github.com/crypto-org-chain/cosmos-sdk/store v0.0.0-20241217090828-cfbca9fe8254/go.mod h1:8DwVTz83/2PSI366FERGbWSH7hL6sB7HbYp8bqksNwM=
 github.com/crypto-org-chain/cosmos-sdk/x/tx v0.0.0-20241217090828-cfbca9fe8254 h1:JzLOFRiKsDtLJt5h0M0jkEIPDKvFFyja7VEp7gG6O9U=
 github.com/crypto-org-chain/cosmos-sdk/x/tx v0.0.0-20241217090828-cfbca9fe8254/go.mod h1:V6DImnwJMTq5qFjeGWpXNiT/fjgE4HtmclRmTqRVM3w=
-github.com/crypto-org-chain/ethermint v0.6.1-0.20250717081702-82aea6c8e097 h1:QEXMNSDRyPCQYZHY/D44Ve4G9S/yMaCv+tu0Ysi127s=
-github.com/crypto-org-chain/ethermint v0.6.1-0.20250717081702-82aea6c8e097/go.mod h1:ASZABhEfp1sl7jHfIR8kHvyvlf4/OWLX4qvciLVTD7g=
+github.com/crypto-org-chain/ethermint v0.6.1-0.20250718093123-270db5ecb178 h1:umQ5ob94a+OtV7nf2wVp3Rfr8MY6EUupVIAJjqNI4+o=
+github.com/crypto-org-chain/ethermint v0.6.1-0.20250718093123-270db5ecb178/go.mod h1:ASZABhEfp1sl7jHfIR8kHvyvlf4/OWLX4qvciLVTD7g=
 github.com/crypto-org-chain/go-block-stm v0.0.0-20241213061541-7afe924fb4a6 h1:6KPEi8dWkDSBddQb4NAvEXmNnTXymF3yVeTaT4Hz1iU=
 github.com/crypto-org-chain/go-block-stm v0.0.0-20241213061541-7afe924fb4a6/go.mod h1:iwQTX9xMX8NV9k3o2BiWXA0SswpsZrDk5q3gA7nWYiE=
 github.com/danieljoos/wincred v1.2.1 h1:dl9cBrupW8+r5250DYkYxocLeZ1Y4vB1kxgtjxw8GQs=
