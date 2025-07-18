@@ -134,8 +134,8 @@ schema = 3
     version = "v0.2.0"
     hash = "sha256-Tx3sPuhsoVwrCfJdIwf4ipn7pD92OQNYvpCxl1Z9Wt0="
   [mod."github.com/bits-and-blooms/bitset"]
-    version = "v1.20.0"
-    hash = "sha256-X6F8PBnuJVUetLfYoRDSyKIH84jknNoltDJE41aYOdQ="
+    version = "v1.22.0"
+    hash = "sha256-lY1K29h4vlAmJVvwKgbTG8BTACYGjFaginCszN+ST6w="
   [mod."github.com/btcsuite/btcd"]
     version = "v0.24.2"
     hash = "sha256-ahlpwEr4KfyrEA899X07QtuSDnC8U+SnwL+z72DiK5E="
@@ -231,18 +231,9 @@ schema = 3
   [mod."github.com/cosmos/iavl"]
     version = "v1.2.4-0.20241218014611-3b0ad9922f9f"
     hash = "sha256-WbNyKZmKBr2R1YaVfGVdSH9dX6AqFynOwd2dmpTX3ZI="
-  [mod."github.com/cosmos/ibc-go/modules/apps/callbacks"]
-    version = "v0.0.0-20250312150146-53eaba19375d"
-    hash = "sha256-mL+g8WB+fLUlTKMnrdn8rTgw2gqXsHlky3/BTsyfek0="
-  [mod."github.com/cosmos/ibc-go/modules/capability"]
-    version = "v1.0.1"
-    hash = "sha256-iRhj2WTr99DgAl80h25pxtkO6iHYjyHflwpxKKG5b6E="
   [mod."github.com/cosmos/ibc-go/v10"]
     version = "v10.1.1"
     hash = "sha256-dYqLbQROlFKn+kXzTVmRyp8VD+mHOLuU1DdEj2+H+4k="
-  [mod."github.com/cosmos/ibc-go/v8"]
-    version = "v8.7.0"
-    hash = "sha256-axMi6WoRyrtIGpZ24XQ1N0e2gUQ4ZbqnPVpYsqwmUmU="
   [mod."github.com/cosmos/ics23/go"]
     version = "v0.11.0"
     hash = "sha256-mgU/pqp4kASmW/bP0z6PzssfjRp7GU9ioyvNlDdGC+E="
