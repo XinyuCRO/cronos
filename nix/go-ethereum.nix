@@ -29,8 +29,9 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-R9Qg6estiyjMAwN6tvuN9ZuE7+JqjEy+qYOPAg5lIJY=";
 
-
   doCheck = false;
+
+  outputs = [ "out" ] ++ bins;
 
   # Move binaries to separate outputs and symlink them back to $out
   postInstall = lib.concatStringsSep "\n" (
@@ -39,8 +40,6 @@ buildGoModule rec {
       "mkdir -p \$${bin}/bin && mv $out/bin/${bin} \$${bin}/bin/ && ln -s \$${bin}/bin/${bin} $out/bin/"
     ) bins
   );
-
-  outputs = ["out"] ++ bins;
 
   subPackages = [
     "cmd/abidump"
