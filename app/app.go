@@ -49,7 +49,6 @@ import (
 	evmhandlers "github.com/crypto-org-chain/cronos/v2/x/cronos/keeper/evmhandlers"
 	cronosprecompiles "github.com/crypto-org-chain/cronos/v2/x/cronos/keeper/precompiles"
 	"github.com/crypto-org-chain/cronos/v2/x/cronos/middleware"
-
 	// force register the extension json-rpc.
 	_ "github.com/crypto-org-chain/cronos/v2/x/cronos/rpc"
 	cronostypes "github.com/crypto-org-chain/cronos/v2/x/cronos/types"
@@ -58,16 +57,15 @@ import (
 	e2eekeyring "github.com/crypto-org-chain/cronos/v2/x/e2ee/keyring"
 	e2eetypes "github.com/crypto-org-chain/cronos/v2/x/e2ee/types"
 	"github.com/ethereum/go-ethereum/common"
-
 	// Force-load the tracer engines to trigger registration
 	"github.com/ethereum/go-ethereum/core/vm"
 	_ "github.com/ethereum/go-ethereum/eth/tracers/js"
 	_ "github.com/ethereum/go-ethereum/eth/tracers/native"
 	ethparams "github.com/ethereum/go-ethereum/params"
-	evmapp "github.com/evmos/ethermint/evmd"
-	evmante "github.com/evmos/ethermint/evmd/ante"
 	evmenc "github.com/evmos/ethermint/encoding"
 	"github.com/evmos/ethermint/ethereum/eip712"
+	evmapp "github.com/evmos/ethermint/evmd"
+	evmante "github.com/evmos/ethermint/evmd/ante"
 	srvflags "github.com/evmos/ethermint/server/flags"
 	ethermint "github.com/evmos/ethermint/types"
 	"github.com/evmos/ethermint/x/evm"
@@ -340,7 +338,7 @@ func New(
 	db dbm.DB,
 	traceStore io.Writer,
 	loadLatest bool,
-	// this line is used by starport scaffolding # stargate/app/newArgument
+// this line is used by starport scaffolding # stargate/app/newArgument
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) *App {
@@ -686,7 +684,7 @@ func New(
 
 	app.GovKeeper = *govKeeper.SetHooks(
 		govtypes.NewMultiGovHooks(
-		// register the governance hooks
+			// register the governance hooks
 		),
 	)
 
