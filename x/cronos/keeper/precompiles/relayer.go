@@ -201,7 +201,7 @@ func (bc *RelayerContract) Run(evm *vm.EVM, contract *vm.Contract, readonly bool
 	e := &Executor{
 		cdc:       bc.cdc,
 		stateDB:   stateDB,
-		caller:    contract.Address(),
+		caller:    contract.Caller(),
 		contract:  precompileAddr,
 		input:     input,
 		converter: converter,
