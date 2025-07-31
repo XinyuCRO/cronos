@@ -49,7 +49,6 @@ import (
 	evmhandlers "github.com/crypto-org-chain/cronos/v2/x/cronos/keeper/evmhandlers"
 	cronosprecompiles "github.com/crypto-org-chain/cronos/v2/x/cronos/keeper/precompiles"
 	"github.com/crypto-org-chain/cronos/v2/x/cronos/middleware"
-
 	// force register the extension json-rpc.
 	_ "github.com/crypto-org-chain/cronos/v2/x/cronos/rpc"
 	cronostypes "github.com/crypto-org-chain/cronos/v2/x/cronos/types"
