@@ -17,13 +17,15 @@ let
 in
 buildGoModule rec {
   pname = "go-ethereum";
-  version = "1.15.11";
+  # Use the old estimateGas implementation
+  # https://github.com/crypto-org-chain/go-ethereum/commits/release/1.15-estimateGas/
+  version = "1c9b194657000b1593a6162a0d889b801548bf27";
 
   src = fetchFromGitHub {
-    owner = "ethereum";
+    owner = "crypto-org-chain";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-2XGKkimwe9h8RxO3SzUta5Bh2Ooldl2LiHqUpn8FK7I=";
+    rev = version;
+    sha256 = "sha256-+uAvVB3uoE7dRfm3hrJOZeuboyeU4RJYD0uUxEYH3X0=";
   };
 
   proxyVendor = true;
