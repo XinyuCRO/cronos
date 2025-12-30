@@ -1,0 +1,16 @@
+# buf.gen.yaml
+version: v1
+managed:
+  enabled: true
+plugins:
+  - plugin: buf.build/protocolbuffers/python:v23.2
+    out: ../../integration_tests/protobuf
+
+  # 2. Generate Python Interface (Type) Stubs
+  - plugin: buf.build/protocolbuffers/pyi
+    out: ../../integration_tests/protobuf
+
+  # 3. (Optional) Generate gRPC code
+  # Remove this block if you don't have services in your proto files
+  - plugin: buf.build/grpc/python
+    out: ../../integration_tests/protobuf

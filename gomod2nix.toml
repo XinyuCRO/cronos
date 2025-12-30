@@ -63,11 +63,13 @@ schema = 3
     version = "v0.1.2"
     hash = "sha256-1VhdIdBDG7jaSiRTNYtoQ3WGaGm+vQ1Qf671zSiWAek="
   [mod."cosmossdk.io/x/evidence"]
-    version = "v0.1.1"
-    hash = "sha256-iSjMwFPu1InR6weF/m4hGHP+StsudOCqeDZefGPTfxw="
+    version = "v0.0.0-20241217090828-cfbca9fe8254"
+    hash = "sha256-r8a/CMfTjrj0bSg95tIp+2dETlhr2RVPkQ9YDQZvLKE="
+    replaced = "github.com/crypto-org-chain/cosmos-sdk/x/evidence"
   [mod."cosmossdk.io/x/feegrant"]
-    version = "v0.1.1"
-    hash = "sha256-aps3LfnQau1TYeccGwtqHQvy1Rudc9+O+iVAwXBKyDw="
+    version = "v0.0.0-20241217090828-cfbca9fe8254"
+    hash = "sha256-ux5irofzphJCIyCrzo3IgwFJ7J9t/kGapfeDdvd4wR0="
+    replaced = "github.com/crypto-org-chain/cosmos-sdk/x/feegrant"
   [mod."cosmossdk.io/x/tx"]
     version = "v0.0.0-20241217090828-cfbca9fe8254"
     hash = "sha256-3A5GTl5NRD4zH3PsSd450C6HvU2zi4I7b4Zqu+L9YAo="
@@ -88,6 +90,9 @@ schema = 3
     version = "v1.2.0"
     hash = "sha256-emQlH+RQpESoFCzpHS38fEhs1SLjotxNPlRK4B5Aybs="
     replaced = "github.com/cosmos/keyring"
+  [mod."github.com/CosmWasm/wasmvm/v2"]
+    version = "v2.2.4"
+    hash = "sha256-bwXSar1thXi1PpAiWaj89ywPCVvARr4yp2inTkpBKEY="
   [mod."github.com/DataDog/datadog-go"]
     version = "v4.8.3+incompatible"
     hash = "sha256-9KvlVQdgyJ1ulDa6wkLb0ACdjc+R0U91hdb7nxodrA0="
@@ -229,9 +234,14 @@ schema = 3
     version = "v1.2.6"
     hash = "sha256-9kLtVepU5b3m2Sne8pBQNvF9LxM374LEmvuLWeYBfFU="
     replaced = "github.com/cosmos/iavl"
+  [mod."github.com/cosmos/ibc-go/modules/light-clients/08-wasm/v10"]
+    version = "v10.0.0-20251211071218-e03819baf47b"
+    hash = "sha256-oEsqODxf7kYQKGQJvwt4L73RIiPr5AFSmWgcCjZjdss="
+    replaced = "github.com/XinyuCRO/ibc-go/modules/light-clients/08-wasm/v10"
   [mod."github.com/cosmos/ibc-go/v10"]
-    version = "v10.4.0"
+    version = "v10.4.1-0.20251211071218-e03819baf47b"
     hash = "sha256-3qETOTsDgjP5PGW+SWJdZxya9Qp9ivKUGqFgXbvVRA8="
+    replaced = "github.com/XinyuCRO/ibc-go/v10"
   [mod."github.com/cosmos/ics23/go"]
     version = "v0.11.0"
     hash = "sha256-mgU/pqp4kASmW/bP0z6PzssfjRp7GU9ioyvNlDdGC+E="
@@ -612,6 +622,9 @@ schema = 3
   [mod."github.com/sasha-s/go-deadlock"]
     version = "v0.3.5"
     hash = "sha256-1vyxWqOTVVVeodipm/tpDgRKUMkEdkoLWSgtiVZaZmw="
+  [mod."github.com/shamaton/msgpack/v2"]
+    version = "v2.2.0"
+    hash = "sha256-88IPizf6YuD6Q5mCMGa/AI1XgerVfoZDP09j60XArm8="
   [mod."github.com/shirou/gopsutil"]
     version = "v3.21.4-0.20210419000835-c7a38de76ee5+incompatible"
     hash = "sha256-oqIqyFquWabIE6DID6uTEc8oFEmM1rVu2ATn3toiCEg="

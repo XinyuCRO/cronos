@@ -3,6 +3,7 @@
   stdenv,
   buildGoApplication,
   nix-gitignore,
+  fetchurl,
   coverage ? false, # https://tip.golang.org/doc/go1.20#cover
   rocksdb,
   network ? "mainnet", # mainnet|testnet
@@ -13,6 +14,11 @@
 let
   version = "v1.6.0";
   pname = "cronosd";
+  # Download libwasmvm.dylib v2.3.1 for macOS
+  libwasmvm = fetchurl {
+    url = "https://github.com/CosmWasm/wasmvm/releases/download/v2.3.1/libwasmvm.dylib";
+    sha256 = "sha256-1gsd1abPBJwMiikeiNUot9r048Tth9cTyCeP8QufYak=";
+  };
   tags = [
     "ledger"
     "netgo"
@@ -68,8 +74,16 @@ buildGoApplication rec {
       "-lrocksdb -pthread -lstdc++ -ldl"
   );
 
-  postFixup = lib.optionalString (stdenv.isDarwin && rocksdb != null) ''
-    ${stdenv.cc.bintools.targetPrefix}install_name_tool -change "@rpath/librocksdb.8.dylib" "${rocksdb}/lib/librocksdb.dylib" $out/bin/cronosd
+  postFixup = lib.optionalString stdenv.isDarwin ''
+    # Fix rocksdb rpath
+    ${lib.optionalString (rocksdb != null) ''
+      ${stdenv.cc.bintools.targetPrefix}install_name_tool -change "@rpath/librocksdb.8.dylib" "${rocksdb}/lib/librocksdb.dylib" $out/bin/cronosd
+    ''}
+    # Install libwasmvm.dylib and fix rpath
+    mkdir -p $out/lib
+    cp ${libwasmvm} $out/lib/libwasmvm.dylib
+    chmod +w $out/lib/libwasmvm.dylib
+    ${stdenv.cc.bintools.targetPrefix}install_name_tool -add_rpath "$out/lib" $out/bin/cronosd
   '';
 
   doCheck = false;

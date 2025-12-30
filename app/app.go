@@ -22,6 +22,9 @@ import (
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/gogoproto/proto"
+	ibcwasm "github.com/cosmos/ibc-go/modules/light-clients/08-wasm/v10"
+	ibcwasmkeeper "github.com/cosmos/ibc-go/modules/light-clients/08-wasm/v10/keeper"
+	ibcwasmtypes "github.com/cosmos/ibc-go/modules/light-clients/08-wasm/v10/types"
 	ica "github.com/cosmos/ibc-go/v10/modules/apps/27-interchain-accounts"
 	icacontroller "github.com/cosmos/ibc-go/v10/modules/apps/27-interchain-accounts/controller"
 	icacontrollerkeeper "github.com/cosmos/ibc-go/v10/modules/apps/27-interchain-accounts/controller/keeper"
@@ -34,10 +37,12 @@ import (
 	"github.com/cosmos/ibc-go/v10/modules/apps/transfer"
 	ibctransferkeeper "github.com/cosmos/ibc-go/v10/modules/apps/transfer/keeper"
 	ibctransfertypes "github.com/cosmos/ibc-go/v10/modules/apps/transfer/types"
+	transferv2 "github.com/cosmos/ibc-go/v10/modules/apps/transfer/v2"
 	ibc "github.com/cosmos/ibc-go/v10/modules/core"
 	ibcclienttypes "github.com/cosmos/ibc-go/v10/modules/core/02-client/types"
 	ibcconnectiontypes "github.com/cosmos/ibc-go/v10/modules/core/03-connection/types"
 	porttypes "github.com/cosmos/ibc-go/v10/modules/core/05-port/types"
+	ibcapi "github.com/cosmos/ibc-go/v10/modules/core/api"
 	ibcexported "github.com/cosmos/ibc-go/v10/modules/core/exported"
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 	ibctm "github.com/cosmos/ibc-go/v10/modules/light-clients/07-tendermint"
@@ -252,6 +257,7 @@ func StoreKeys() (
 		e2eetypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 		cronostypes.StoreKey,
+		ibcwasmtypes.StoreKey,
 	}
 	keys := storetypes.NewKVStoreKeys(storeKeys...)
 	tkeys := storetypes.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -307,6 +313,7 @@ type App struct {
 	TransferKeeper        ibctransferkeeper.Keeper
 	FeeGrantKeeper        feegrantkeeper.Keeper
 	ConsensusParamsKeeper consensusparamkeeper.Keeper
+	WasmClientKeeper      ibcwasmkeeper.Keeper
 
 	// Ethermint keepers
 	EvmKeeper       *evmkeeper.Keeper
@@ -731,19 +738,76 @@ func New(
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := porttypes.NewRouter()
+	ibcRouterV2 := ibcapi.NewRouter()
 	// Add controller & ica auth modules to IBC router
 	ibcRouter.
 		AddRoute(icacontrollertypes.SubModuleName, icaControllerStack).
 		AddRoute(icahosttypes.SubModuleName, icaHostStack).
 		AddRoute(ibctransfertypes.ModuleName, transferStack)
+	// register the transfer v2 module.
+	ibcRouterV2.AddRoute(ibctransfertypes.PortID, transferv2.NewIBCModule(app.TransferKeeper))
 
 	// this line is used by starport scaffolding # ibc/app/router
 	app.IBCKeeper.SetRouter(ibcRouter)
+	app.IBCKeeper.SetRouterV2(ibcRouterV2)
 	clientKeeper := app.IBCKeeper.ClientKeeper
 	storeProvider := clientKeeper.GetStoreProvider()
 
+	// Initialize Wasm Client Keeper after IBC Keeper is created
+	// Only initialize WasmVM when using a persistent database to avoid lock conflicts
+	// with CLI commands that also instantiate the app.
+	// MemDB is used for CLI command initialization (e.g., in cmd/root.go)
+	// and we skip WasmVM initialization in those cases to prevent the exclusive lock error.
+	isMemDB := fmt.Sprintf("%T", db) == "*db.MemDB"
+
+	if !isMemDB {
+		// Use the same homePath that is used for all other data directories
+		// Place wasm data inside the data directory alongside other databases
+		wasmDataDir := filepath.Join(homePath, "data", "ibc_08-wasm_client_data")
+
+		// Convert to absolute path to ensure WasmVM library uses the correct directory
+		// The WasmVM C library needs an absolute path to avoid resolution issues
+		absWasmDataDir, err := filepath.Abs(wasmDataDir)
+		if err != nil {
+			panic(fmt.Errorf("failed to get absolute path for wasm data directory: %w", err))
+		}
+
+		logger.Info("Creating Wasm data directory",
+			"homePath", homePath,
+			"wasmDataDir", wasmDataDir,
+			"absWasmDataDir", absWasmDataDir)
+
+		if err := os.MkdirAll(absWasmDataDir, 0o755); err != nil {
+			panic(fmt.Errorf("failed to create wasm data directory %s: %w", absWasmDataDir, err))
+		}
+
+		logger.Info("Initializing Wasm Client Keeper",
+			"absWasmDataDir", absWasmDataDir)
+
+		wasmConfig := ibcwasmtypes.WasmConfig{
+			DataDir:               absWasmDataDir,
+			SupportedCapabilities: []string{"iterator"},
+			ContractDebugMode:     false,
+		}
+		app.WasmClientKeeper = ibcwasmkeeper.NewKeeperWithConfig(
+			appCodec,
+			runtime.NewKVStoreService(keys[ibcwasmtypes.StoreKey]),
+			clientKeeper,
+			authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+			wasmConfig,
+			app.GRPCQueryRouter(),
+		)
+	} else {
+		logger.Info("Skipping Wasm Client Keeper initialization for MemDB (CLI mode)")
+	}
+
 	tmLightClientModule := ibctm.NewLightClientModule(appCodec, storeProvider)
 	clientKeeper.AddRoute(ibctm.ModuleName, &tmLightClientModule)
+
+	if !isMemDB {
+		wasmLightClientModule := ibcwasm.NewLightClientModule(app.WasmClientKeeper, storeProvider)
+		clientKeeper.AddRoute(ibcwasmtypes.ModuleName, &wasmLightClientModule)
+	}
 
 	// Create evidence Keeper for to register the IBC light client misbehavior evidence route
 	evidenceKeeper := evidencekeeper.NewKeeper(
@@ -802,6 +866,7 @@ func New(
 		ibctm.NewAppModule(tmLightClientModule),
 		transferModule,
 		icaModule,
+		ibcwasm.NewAppModule(app.WasmClientKeeper),
 
 		// Ethermint app modules
 		feemarket.NewAppModule(app.FeeMarketKeeper, feeMarketS),
@@ -841,6 +906,7 @@ func New(
 		ibcexported.ModuleName,
 		ibctransfertypes.ModuleName,
 		icatypes.ModuleName,
+		ibcwasmtypes.ModuleName,
 		authtypes.ModuleName,
 		banktypes.ModuleName,
 		govtypes.ModuleName,
@@ -861,6 +927,7 @@ func New(
 		ibcexported.ModuleName,
 		ibctransfertypes.ModuleName,
 		icatypes.ModuleName,
+		ibcwasmtypes.ModuleName,
 		authtypes.ModuleName,
 		banktypes.ModuleName,
 		distrtypes.ModuleName,
@@ -905,6 +972,7 @@ func New(
 		vestingtypes.ModuleName,
 		cronostypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		ibcwasmtypes.ModuleName,
 		// NOTE: crisis module must go at the end to check for invariants on each module
 		crisistypes.ModuleName,
 		e2eetypes.ModuleName,
@@ -1026,6 +1094,16 @@ func New(
 		fmt.Fprintln(os.Stderr, err.Error())
 	}
 
+	// must be before Loading version
+	if manager := app.SnapshotManager(); manager != nil && !isMemDB {
+		err := manager.RegisterExtensions(
+			ibcwasmkeeper.NewWasmSnapshotter(app.CommitMultiStore(), &app.WasmClientKeeper),
+		)
+		if err != nil {
+			panic(fmt.Errorf("failed to register snapshot extension: %s", err))
+		}
+	}
+
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
 			tmos.Exit(err.Error())
@@ -1041,13 +1119,23 @@ func New(
 			}
 		}
 
-		if err := app.RefreshBlockList(app.NewUncachedContext(false, cmtproto.Header{})); err != nil {
+		ctx := app.NewUncachedContext(false, cmtproto.Header{})
+
+		if err := app.RefreshBlockList(ctx); err != nil {
 			if !cast.ToBool(appOpts.Get(FlagUnsafeIgnoreBlockListFailure)) {
 				panic(err)
 			}
 
 			// otherwise, just emit error log
 			app.Logger().Error("failed to update blocklist", "error", err)
+		}
+
+		// Initialize pinned codes in wasmvm as they are not persisted there
+		// Only when WasmClientKeeper is initialized (not MemDB)
+		if !isMemDB {
+			if err := app.WasmClientKeeper.InitializePinnedCodes(ctx); err != nil {
+				tmos.Exit(fmt.Sprintf("failed initialize pinned codes %s", err))
+			}
 		}
 	}
 

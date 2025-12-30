@@ -4,245 +4,66 @@
 """Generated protocol buffer code."""
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
-from google.protobuf import message as _message
-from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import builder as _builder
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
 from cosmos.base.query.v1beta1 import pagination_pb2 as cosmos_dot_base_dot_query_dot_v1beta1_dot_pagination__pb2
-from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
-from ethermint.evm.v1 import evm_pb2 as ethermint_dot_evm_dot_v1_dot_evm__pb2
 from ethermint.evm.v1 import tx_pb2 as ethermint_dot_evm_dot_v1_dot_tx__pb2
+from ethermint.evm.v1 import log_pb2 as ethermint_dot_evm_dot_v1_dot_log__pb2
+from ethermint.evm.v1 import params_pb2 as ethermint_dot_evm_dot_v1_dot_params__pb2
+from ethermint.evm.v1 import trace_config_pb2 as ethermint_dot_evm_dot_v1_dot_trace__config__pb2
+from gogoproto import gogo_pb2 as gogoproto_dot_gogo__pb2
+from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x65thermint/evm/v1/query.proto\x12\x10\x65thermint.evm.v1\x1a\x14gogoproto/gogo.proto\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1a\x65thermint/evm/v1/evm.proto\x1a\x19\x65thermint/evm/v1/tx.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"0\n\x13QueryAccountRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"I\n\x14QueryAccountResponse\x12\x0f\n\x07\x62\x61lance\x18\x01 \x01(\t\x12\x11\n\tcode_hash\x18\x02 \x01(\t\x12\r\n\x05nonce\x18\x03 \x01(\x04\"6\n\x19QueryCosmosAccountRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"^\n\x1aQueryCosmosAccountResponse\x12\x16\n\x0e\x63osmos_address\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x16\n\x0e\x61\x63\x63ount_number\x18\x03 \x01(\x04\">\n\x1cQueryValidatorAccountRequest\x12\x14\n\x0c\x63ons_address\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"b\n\x1dQueryValidatorAccountResponse\x12\x17\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\t\x12\x10\n\x08sequence\x18\x02 \x01(\x04\x12\x16\n\x0e\x61\x63\x63ount_number\x18\x03 \x01(\x04\"0\n\x13QueryBalanceRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"\'\n\x14QueryBalanceResponse\x12\x0f\n\x07\x62\x61lance\x18\x01 \x01(\t\"=\n\x13QueryStorageRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"%\n\x14QueryStorageResponse\x12\r\n\x05value\x18\x01 \x01(\t\"-\n\x10QueryCodeRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"!\n\x11QueryCodeResponse\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x0c\"h\n\x12QueryTxLogsRequest\x12\x0c\n\x04hash\x18\x01 \x01(\t\x12:\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequest:\x08\xe8\xa0\x1f\x00\x88\xa0\x1f\x00\"w\n\x13QueryTxLogsResponse\x12#\n\x04logs\x18\x01 \x03(\x0b\x32\x15.ethermint.evm.v1.Log\x12;\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponse\"\x14\n\x12QueryParamsRequest\"E\n\x13QueryParamsResponse\x12.\n\x06params\x18\x01 \x01(\x0b\x32\x18.ethermint.evm.v1.ParamsB\x04\xc8\xde\x1f\x00\"/\n\x0e\x45thCallRequest\x12\x0c\n\x04\x61rgs\x18\x01 \x01(\x0c\x12\x0f\n\x07gas_cap\x18\x02 \x01(\x04\"\"\n\x13\x45stimateGasResponse\x12\x0b\n\x03gas\x18\x01 \x01(\x04\"\xa3\x02\n\x13QueryTraceTxRequest\x12,\n\x03msg\x18\x01 \x01(\x0b\x32\x1f.ethermint.evm.v1.MsgEthereumTx\x12\x33\n\x0ctrace_config\x18\x03 \x01(\x0b\x32\x1d.ethermint.evm.v1.TraceConfig\x12\x35\n\x0cpredecessors\x18\x04 \x03(\x0b\x32\x1f.ethermint.evm.v1.MsgEthereumTx\x12\x14\n\x0c\x62lock_number\x18\x05 \x01(\x03\x12\x12\n\nblock_hash\x18\x06 \x01(\t\x12\x38\n\nblock_time\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01J\x04\x08\x02\x10\x03R\x08tx_index\"$\n\x14QueryTraceTxResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\xdf\x01\n\x16QueryTraceBlockRequest\x12,\n\x03txs\x18\x01 \x03(\x0b\x32\x1f.ethermint.evm.v1.MsgEthereumTx\x12\x33\n\x0ctrace_config\x18\x03 \x01(\x0b\x32\x1d.ethermint.evm.v1.TraceConfig\x12\x14\n\x0c\x62lock_number\x18\x05 \x01(\x03\x12\x12\n\nblock_hash\x18\x06 \x01(\t\x12\x38\n\nblock_time\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01\"\'\n\x17QueryTraceBlockResponse\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\"\x15\n\x13QueryBaseFeeRequest\"T\n\x14QueryBaseFeeResponse\x12<\n\x08\x62\x61se_fee\x18\x01 \x01(\tB*\xda\xde\x1f&github.com/cosmos/cosmos-sdk/types.Int2\xef\x0c\n\x05Query\x12\x85\x01\n\x07\x41\x63\x63ount\x12%.ethermint.evm.v1.QueryAccountRequest\x1a&.ethermint.evm.v1.QueryAccountResponse\"+\x82\xd3\xe4\x93\x02%\x12#/ethermint/evm/v1/account/{address}\x12\x9e\x01\n\rCosmosAccount\x12+.ethermint.evm.v1.QueryCosmosAccountRequest\x1a,.ethermint.evm.v1.QueryCosmosAccountResponse\"2\x82\xd3\xe4\x93\x02,\x12*/ethermint/evm/v1/cosmos_account/{address}\x12\xaf\x01\n\x10ValidatorAccount\x12..ethermint.evm.v1.QueryValidatorAccountRequest\x1a/.ethermint.evm.v1.QueryValidatorAccountResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/ethermint/evm/v1/validator_account/{cons_address}\x12\x86\x01\n\x07\x42\x61lance\x12%.ethermint.evm.v1.QueryBalanceRequest\x1a&.ethermint.evm.v1.QueryBalanceResponse\",\x82\xd3\xe4\x93\x02&\x12$/ethermint/evm/v1/balances/{address}\x12\x8b\x01\n\x07Storage\x12%.ethermint.evm.v1.QueryStorageRequest\x1a&.ethermint.evm.v1.QueryStorageResponse\"1\x82\xd3\xe4\x93\x02+\x12)/ethermint/evm/v1/storage/{address}/{key}\x12z\n\x04\x43ode\x12\".ethermint.evm.v1.QueryCodeRequest\x1a#.ethermint.evm.v1.QueryCodeResponse\")\x82\xd3\xe4\x93\x02#\x12!/ethermint/evm/v1/codes/{address}\x12w\n\x06Params\x12$.ethermint.evm.v1.QueryParamsRequest\x1a%.ethermint.evm.v1.QueryParamsResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/ethermint/evm/v1/params\x12x\n\x07\x45thCall\x12 .ethermint.evm.v1.EthCallRequest\x1a\'.ethermint.evm.v1.MsgEthereumTxResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/ethermint/evm/v1/eth_call\x12~\n\x0b\x45stimateGas\x12 .ethermint.evm.v1.EthCallRequest\x1a%.ethermint.evm.v1.EstimateGasResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/ethermint/evm/v1/estimate_gas\x12|\n\x07TraceTx\x12%.ethermint.evm.v1.QueryTraceTxRequest\x1a&.ethermint.evm.v1.QueryTraceTxResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/ethermint/evm/v1/trace_tx\x12\x88\x01\n\nTraceBlock\x12(.ethermint.evm.v1.QueryTraceBlockRequest\x1a).ethermint.evm.v1.QueryTraceBlockResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/ethermint/evm/v1/trace_block\x12|\n\x07\x42\x61seFee\x12%.ethermint.evm.v1.QueryBaseFeeRequest\x1a&.ethermint.evm.v1.QueryBaseFeeResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/ethermint/evm/v1/base_feeB(Z&github.com/evmos/ethermint/x/evm/typesb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1c\x65thermint/evm/v1/query.proto\x12\x10\x65thermint.evm.v1\x1a*cosmos/base/query/v1beta1/pagination.proto\x1a\x19\x65thermint/evm/v1/tx.proto\x1a\x1a\x65thermint/evm/v1/log.proto\x1a\x1d\x65thermint/evm/v1/params.proto\x1a#ethermint/evm/v1/trace_config.proto\x1a\x14gogoproto/gogo.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"9\n\x13QueryAccountRequest\x12\x18\n\x07\x61\x64\x64ress\x18\x01 \x01(\tR\x07\x61\x64\x64ress:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"c\n\x14QueryAccountResponse\x12\x18\n\x07\x62\x61lance\x18\x01 \x01(\tR\x07\x62\x61lance\x12\x1b\n\tcode_hash\x18\x02 \x01(\tR\x08\x63odeHash\x12\x14\n\x05nonce\x18\x03 \x01(\x04R\x05nonce\"?\n\x19QueryCosmosAccountRequest\x12\x18\n\x07\x61\x64\x64ress\x18\x01 \x01(\tR\x07\x61\x64\x64ress:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\x86\x01\n\x1aQueryCosmosAccountResponse\x12%\n\x0e\x63osmos_address\x18\x01 \x01(\tR\rcosmosAddress\x12\x1a\n\x08sequence\x18\x02 \x01(\x04R\x08sequence\x12%\n\x0e\x61\x63\x63ount_number\x18\x03 \x01(\x04R\raccountNumber\"K\n\x1cQueryValidatorAccountRequest\x12!\n\x0c\x63ons_address\x18\x01 \x01(\tR\x0b\x63onsAddress:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\x8b\x01\n\x1dQueryValidatorAccountResponse\x12\'\n\x0f\x61\x63\x63ount_address\x18\x01 \x01(\tR\x0e\x61\x63\x63ountAddress\x12\x1a\n\x08sequence\x18\x02 \x01(\x04R\x08sequence\x12%\n\x0e\x61\x63\x63ount_number\x18\x03 \x01(\x04R\raccountNumber\"9\n\x13QueryBalanceRequest\x12\x18\n\x07\x61\x64\x64ress\x18\x01 \x01(\tR\x07\x61\x64\x64ress:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"0\n\x14QueryBalanceResponse\x12\x18\n\x07\x62\x61lance\x18\x01 \x01(\tR\x07\x62\x61lance\"K\n\x13QueryStorageRequest\x12\x18\n\x07\x61\x64\x64ress\x18\x01 \x01(\tR\x07\x61\x64\x64ress\x12\x10\n\x03key\x18\x02 \x01(\tR\x03key:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\",\n\x14QueryStorageResponse\x12\x14\n\x05value\x18\x01 \x01(\tR\x05value\"6\n\x10QueryCodeRequest\x12\x18\n\x07\x61\x64\x64ress\x18\x01 \x01(\tR\x07\x61\x64\x64ress:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\'\n\x11QueryCodeResponse\x12\x12\n\x04\x63ode\x18\x01 \x01(\x0cR\x04\x63ode\"z\n\x12QueryTxLogsRequest\x12\x12\n\x04hash\x18\x01 \x01(\tR\x04hash\x12\x46\n\npagination\x18\x02 \x01(\x0b\x32&.cosmos.base.query.v1beta1.PageRequestR\npagination:\x08\x88\xa0\x1f\x00\xe8\xa0\x1f\x00\"\x89\x01\n\x13QueryTxLogsResponse\x12)\n\x04logs\x18\x01 \x03(\x0b\x32\x15.ethermint.evm.v1.LogR\x04logs\x12G\n\npagination\x18\x02 \x01(\x0b\x32\'.cosmos.base.query.v1beta1.PageResponseR\npagination\"\x14\n\x12QueryParamsRequest\"M\n\x13QueryParamsResponse\x12\x36\n\x06params\x18\x01 \x01(\x0b\x32\x18.ethermint.evm.v1.ParamsB\x04\xc8\xde\x1f\x00R\x06params\"\xd5\x01\n\x0e\x45thCallRequest\x12\x12\n\x04\x61rgs\x18\x01 \x01(\x0cR\x04\x61rgs\x12\x17\n\x07gas_cap\x18\x02 \x01(\x04R\x06gasCap\x12]\n\x10proposer_address\x18\x03 \x01(\x0c\x42\x32\xfa\xde\x1f.github.com/cosmos/cosmos-sdk/types.ConsAddressR\x0fproposerAddress\x12\x19\n\x08\x63hain_id\x18\x04 \x01(\x03R\x07\x63hainId\x12\x1c\n\toverrides\x18\x05 \x01(\x0cR\toverrides\"T\n\x13\x45stimateGasResponse\x12\x10\n\x03gas\x18\x01 \x01(\x04R\x03gas\x12\x10\n\x03ret\x18\x02 \x01(\x0cR\x03ret\x12\x19\n\x08vm_error\x18\x03 \x01(\tR\x07vmError\"\x96\x04\n\x13QueryTraceTxRequest\x12\x31\n\x03msg\x18\x01 \x01(\x0b\x32\x1f.ethermint.evm.v1.MsgEthereumTxR\x03msg\x12@\n\x0ctrace_config\x18\x03 \x01(\x0b\x32\x1d.ethermint.evm.v1.TraceConfigR\x0btraceConfig\x12\x43\n\x0cpredecessors\x18\x04 \x03(\x0b\x32\x1f.ethermint.evm.v1.MsgEthereumTxR\x0cpredecessors\x12!\n\x0c\x62lock_number\x18\x05 \x01(\x03R\x0b\x62lockNumber\x12\x1d\n\nblock_hash\x18\x06 \x01(\tR\tblockHash\x12\x43\n\nblock_time\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\tblockTime\x12]\n\x10proposer_address\x18\x08 \x01(\x0c\x42\x32\xfa\xde\x1f.github.com/cosmos/cosmos-sdk/types.ConsAddressR\x0fproposerAddress\x12\x19\n\x08\x63hain_id\x18\t \x01(\x03R\x07\x63hainId\x12\x34\n\x08\x62\x61se_fee\x18\n \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x07\x62\x61seFeeJ\x04\x08\x02\x10\x03R\x08tx_index\"*\n\x14QueryTraceTxResponse\x12\x12\n\x04\x64\x61ta\x18\x01 \x01(\x0cR\x04\x64\x61ta\"\x87\x03\n\x15QueryTraceCallRequest\x12\x12\n\x04\x61rgs\x18\x01 \x01(\x0cR\x04\x61rgs\x12\x17\n\x07gas_cap\x18\x02 \x01(\x04R\x06gasCap\x12]\n\x10proposer_address\x18\x03 \x01(\x0c\x42\x32\xfa\xde\x1f.github.com/cosmos/cosmos-sdk/types.ConsAddressR\x0fproposerAddress\x12@\n\x0ctrace_config\x18\x04 \x01(\x0b\x32\x1d.ethermint.evm.v1.TraceConfigR\x0btraceConfig\x12!\n\x0c\x62lock_number\x18\x05 \x01(\x03R\x0b\x62lockNumber\x12\x1d\n\nblock_hash\x18\x06 \x01(\tR\tblockHash\x12\x43\n\nblock_time\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\tblockTime\x12\x19\n\x08\x63hain_id\x18\x08 \x01(\x03R\x07\x63hainId\",\n\x16QueryTraceCallResponse\x12\x12\n\x04\x64\x61ta\x18\x01 \x01(\x0cR\x04\x64\x61ta\"\x8e\x03\n\x16QueryTraceBlockRequest\x12\x31\n\x03txs\x18\x01 \x03(\x0b\x32\x1f.ethermint.evm.v1.MsgEthereumTxR\x03txs\x12@\n\x0ctrace_config\x18\x03 \x01(\x0b\x32\x1d.ethermint.evm.v1.TraceConfigR\x0btraceConfig\x12!\n\x0c\x62lock_number\x18\x05 \x01(\x03R\x0b\x62lockNumber\x12\x1d\n\nblock_hash\x18\x06 \x01(\tR\tblockHash\x12\x43\n\nblock_time\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.TimestampB\x08\xc8\xde\x1f\x00\x90\xdf\x1f\x01R\tblockTime\x12]\n\x10proposer_address\x18\x08 \x01(\x0c\x42\x32\xfa\xde\x1f.github.com/cosmos/cosmos-sdk/types.ConsAddressR\x0fproposerAddress\x12\x19\n\x08\x63hain_id\x18\t \x01(\x03R\x07\x63hainId\"-\n\x17QueryTraceBlockResponse\x12\x12\n\x04\x64\x61ta\x18\x01 \x01(\x0cR\x04\x64\x61ta\"\x15\n\x13QueryBaseFeeRequest\"L\n\x14QueryBaseFeeResponse\x12\x34\n\x08\x62\x61se_fee\x18\x01 \x01(\tB\x19\xda\xde\x1f\x15\x63osmossdk.io/math.IntR\x07\x62\x61seFee2\xf6\r\n\x05Query\x12\x85\x01\n\x07\x41\x63\x63ount\x12%.ethermint.evm.v1.QueryAccountRequest\x1a&.ethermint.evm.v1.QueryAccountResponse\"+\x82\xd3\xe4\x93\x02%\x12#/ethermint/evm/v1/account/{address}\x12\x9e\x01\n\rCosmosAccount\x12+.ethermint.evm.v1.QueryCosmosAccountRequest\x1a,.ethermint.evm.v1.QueryCosmosAccountResponse\"2\x82\xd3\xe4\x93\x02,\x12*/ethermint/evm/v1/cosmos_account/{address}\x12\xaf\x01\n\x10ValidatorAccount\x12..ethermint.evm.v1.QueryValidatorAccountRequest\x1a/.ethermint.evm.v1.QueryValidatorAccountResponse\":\x82\xd3\xe4\x93\x02\x34\x12\x32/ethermint/evm/v1/validator_account/{cons_address}\x12\x86\x01\n\x07\x42\x61lance\x12%.ethermint.evm.v1.QueryBalanceRequest\x1a&.ethermint.evm.v1.QueryBalanceResponse\",\x82\xd3\xe4\x93\x02&\x12$/ethermint/evm/v1/balances/{address}\x12\x8b\x01\n\x07Storage\x12%.ethermint.evm.v1.QueryStorageRequest\x1a&.ethermint.evm.v1.QueryStorageResponse\"1\x82\xd3\xe4\x93\x02+\x12)/ethermint/evm/v1/storage/{address}/{key}\x12z\n\x04\x43ode\x12\".ethermint.evm.v1.QueryCodeRequest\x1a#.ethermint.evm.v1.QueryCodeResponse\")\x82\xd3\xe4\x93\x02#\x12!/ethermint/evm/v1/codes/{address}\x12w\n\x06Params\x12$.ethermint.evm.v1.QueryParamsRequest\x1a%.ethermint.evm.v1.QueryParamsResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/ethermint/evm/v1/params\x12x\n\x07\x45thCall\x12 .ethermint.evm.v1.EthCallRequest\x1a\'.ethermint.evm.v1.MsgEthereumTxResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/ethermint/evm/v1/eth_call\x12~\n\x0b\x45stimateGas\x12 .ethermint.evm.v1.EthCallRequest\x1a%.ethermint.evm.v1.EstimateGasResponse\"&\x82\xd3\xe4\x93\x02 \x12\x1e/ethermint/evm/v1/estimate_gas\x12|\n\x07TraceTx\x12%.ethermint.evm.v1.QueryTraceTxRequest\x1a&.ethermint.evm.v1.QueryTraceTxResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/ethermint/evm/v1/trace_tx\x12\x88\x01\n\nTraceBlock\x12(.ethermint.evm.v1.QueryTraceBlockRequest\x1a).ethermint.evm.v1.QueryTraceBlockResponse\"%\x82\xd3\xe4\x93\x02\x1f\x12\x1d/ethermint/evm/v1/trace_block\x12\x84\x01\n\tTraceCall\x12\'.ethermint.evm.v1.QueryTraceCallRequest\x1a(.ethermint.evm.v1.QueryTraceCallResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/ethermint/evm/v1/trace_call\x12|\n\x07\x42\x61seFee\x12%.ethermint.evm.v1.QueryBaseFeeRequest\x1a&.ethermint.evm.v1.QueryBaseFeeResponse\"\"\x82\xd3\xe4\x93\x02\x1c\x12\x1a/ethermint/evm/v1/base_feeB\xac\x01\n\x14\x63om.ethermint.evm.v1B\nQueryProtoP\x01Z&github.com/evmos/ethermint/x/evm/types\xa2\x02\x03\x45\x45X\xaa\x02\x10\x45thermint.Evm.V1\xca\x02\x10\x45thermint\\Evm\\V1\xe2\x02\x1c\x45thermint\\Evm\\V1\\GPBMetadata\xea\x02\x12\x45thermint::Evm::V1b\x06proto3')
 
-
-
-_QUERYACCOUNTREQUEST = DESCRIPTOR.message_types_by_name['QueryAccountRequest']
-_QUERYACCOUNTRESPONSE = DESCRIPTOR.message_types_by_name['QueryAccountResponse']
-_QUERYCOSMOSACCOUNTREQUEST = DESCRIPTOR.message_types_by_name['QueryCosmosAccountRequest']
-_QUERYCOSMOSACCOUNTRESPONSE = DESCRIPTOR.message_types_by_name['QueryCosmosAccountResponse']
-_QUERYVALIDATORACCOUNTREQUEST = DESCRIPTOR.message_types_by_name['QueryValidatorAccountRequest']
-_QUERYVALIDATORACCOUNTRESPONSE = DESCRIPTOR.message_types_by_name['QueryValidatorAccountResponse']
-_QUERYBALANCEREQUEST = DESCRIPTOR.message_types_by_name['QueryBalanceRequest']
-_QUERYBALANCERESPONSE = DESCRIPTOR.message_types_by_name['QueryBalanceResponse']
-_QUERYSTORAGEREQUEST = DESCRIPTOR.message_types_by_name['QueryStorageRequest']
-_QUERYSTORAGERESPONSE = DESCRIPTOR.message_types_by_name['QueryStorageResponse']
-_QUERYCODEREQUEST = DESCRIPTOR.message_types_by_name['QueryCodeRequest']
-_QUERYCODERESPONSE = DESCRIPTOR.message_types_by_name['QueryCodeResponse']
-_QUERYTXLOGSREQUEST = DESCRIPTOR.message_types_by_name['QueryTxLogsRequest']
-_QUERYTXLOGSRESPONSE = DESCRIPTOR.message_types_by_name['QueryTxLogsResponse']
-_QUERYPARAMSREQUEST = DESCRIPTOR.message_types_by_name['QueryParamsRequest']
-_QUERYPARAMSRESPONSE = DESCRIPTOR.message_types_by_name['QueryParamsResponse']
-_ETHCALLREQUEST = DESCRIPTOR.message_types_by_name['EthCallRequest']
-_ESTIMATEGASRESPONSE = DESCRIPTOR.message_types_by_name['EstimateGasResponse']
-_QUERYTRACETXREQUEST = DESCRIPTOR.message_types_by_name['QueryTraceTxRequest']
-_QUERYTRACETXRESPONSE = DESCRIPTOR.message_types_by_name['QueryTraceTxResponse']
-_QUERYTRACEBLOCKREQUEST = DESCRIPTOR.message_types_by_name['QueryTraceBlockRequest']
-_QUERYTRACEBLOCKRESPONSE = DESCRIPTOR.message_types_by_name['QueryTraceBlockResponse']
-_QUERYBASEFEEREQUEST = DESCRIPTOR.message_types_by_name['QueryBaseFeeRequest']
-_QUERYBASEFEERESPONSE = DESCRIPTOR.message_types_by_name['QueryBaseFeeResponse']
-QueryAccountRequest = _reflection.GeneratedProtocolMessageType('QueryAccountRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYACCOUNTREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryAccountRequest)
-  })
-_sym_db.RegisterMessage(QueryAccountRequest)
-
-QueryAccountResponse = _reflection.GeneratedProtocolMessageType('QueryAccountResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYACCOUNTRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryAccountResponse)
-  })
-_sym_db.RegisterMessage(QueryAccountResponse)
-
-QueryCosmosAccountRequest = _reflection.GeneratedProtocolMessageType('QueryCosmosAccountRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYCOSMOSACCOUNTREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryCosmosAccountRequest)
-  })
-_sym_db.RegisterMessage(QueryCosmosAccountRequest)
-
-QueryCosmosAccountResponse = _reflection.GeneratedProtocolMessageType('QueryCosmosAccountResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYCOSMOSACCOUNTRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryCosmosAccountResponse)
-  })
-_sym_db.RegisterMessage(QueryCosmosAccountResponse)
-
-QueryValidatorAccountRequest = _reflection.GeneratedProtocolMessageType('QueryValidatorAccountRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYVALIDATORACCOUNTREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryValidatorAccountRequest)
-  })
-_sym_db.RegisterMessage(QueryValidatorAccountRequest)
-
-QueryValidatorAccountResponse = _reflection.GeneratedProtocolMessageType('QueryValidatorAccountResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYVALIDATORACCOUNTRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryValidatorAccountResponse)
-  })
-_sym_db.RegisterMessage(QueryValidatorAccountResponse)
-
-QueryBalanceRequest = _reflection.GeneratedProtocolMessageType('QueryBalanceRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYBALANCEREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBalanceRequest)
-  })
-_sym_db.RegisterMessage(QueryBalanceRequest)
-
-QueryBalanceResponse = _reflection.GeneratedProtocolMessageType('QueryBalanceResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYBALANCERESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBalanceResponse)
-  })
-_sym_db.RegisterMessage(QueryBalanceResponse)
-
-QueryStorageRequest = _reflection.GeneratedProtocolMessageType('QueryStorageRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYSTORAGEREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryStorageRequest)
-  })
-_sym_db.RegisterMessage(QueryStorageRequest)
-
-QueryStorageResponse = _reflection.GeneratedProtocolMessageType('QueryStorageResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYSTORAGERESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryStorageResponse)
-  })
-_sym_db.RegisterMessage(QueryStorageResponse)
-
-QueryCodeRequest = _reflection.GeneratedProtocolMessageType('QueryCodeRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYCODEREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryCodeRequest)
-  })
-_sym_db.RegisterMessage(QueryCodeRequest)
-
-QueryCodeResponse = _reflection.GeneratedProtocolMessageType('QueryCodeResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYCODERESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryCodeResponse)
-  })
-_sym_db.RegisterMessage(QueryCodeResponse)
-
-QueryTxLogsRequest = _reflection.GeneratedProtocolMessageType('QueryTxLogsRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYTXLOGSREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTxLogsRequest)
-  })
-_sym_db.RegisterMessage(QueryTxLogsRequest)
-
-QueryTxLogsResponse = _reflection.GeneratedProtocolMessageType('QueryTxLogsResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYTXLOGSRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTxLogsResponse)
-  })
-_sym_db.RegisterMessage(QueryTxLogsResponse)
-
-QueryParamsRequest = _reflection.GeneratedProtocolMessageType('QueryParamsRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYPARAMSREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryParamsRequest)
-  })
-_sym_db.RegisterMessage(QueryParamsRequest)
-
-QueryParamsResponse = _reflection.GeneratedProtocolMessageType('QueryParamsResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYPARAMSRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryParamsResponse)
-  })
-_sym_db.RegisterMessage(QueryParamsResponse)
-
-EthCallRequest = _reflection.GeneratedProtocolMessageType('EthCallRequest', (_message.Message,), {
-  'DESCRIPTOR' : _ETHCALLREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.EthCallRequest)
-  })
-_sym_db.RegisterMessage(EthCallRequest)
-
-EstimateGasResponse = _reflection.GeneratedProtocolMessageType('EstimateGasResponse', (_message.Message,), {
-  'DESCRIPTOR' : _ESTIMATEGASRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.EstimateGasResponse)
-  })
-_sym_db.RegisterMessage(EstimateGasResponse)
-
-QueryTraceTxRequest = _reflection.GeneratedProtocolMessageType('QueryTraceTxRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYTRACETXREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceTxRequest)
-  })
-_sym_db.RegisterMessage(QueryTraceTxRequest)
-
-QueryTraceTxResponse = _reflection.GeneratedProtocolMessageType('QueryTraceTxResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYTRACETXRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceTxResponse)
-  })
-_sym_db.RegisterMessage(QueryTraceTxResponse)
-
-QueryTraceBlockRequest = _reflection.GeneratedProtocolMessageType('QueryTraceBlockRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYTRACEBLOCKREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceBlockRequest)
-  })
-_sym_db.RegisterMessage(QueryTraceBlockRequest)
-
-QueryTraceBlockResponse = _reflection.GeneratedProtocolMessageType('QueryTraceBlockResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYTRACEBLOCKRESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryTraceBlockResponse)
-  })
-_sym_db.RegisterMessage(QueryTraceBlockResponse)
-
-QueryBaseFeeRequest = _reflection.GeneratedProtocolMessageType('QueryBaseFeeRequest', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYBASEFEEREQUEST,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBaseFeeRequest)
-  })
-_sym_db.RegisterMessage(QueryBaseFeeRequest)
-
-QueryBaseFeeResponse = _reflection.GeneratedProtocolMessageType('QueryBaseFeeResponse', (_message.Message,), {
-  'DESCRIPTOR' : _QUERYBASEFEERESPONSE,
-  '__module__' : 'ethermint.evm.v1.query_pb2'
-  # @@protoc_insertion_point(class_scope:ethermint.evm.v1.QueryBaseFeeResponse)
-  })
-_sym_db.RegisterMessage(QueryBaseFeeResponse)
-
-_QUERY = DESCRIPTOR.services_by_name['Query']
+_globals = globals()
+_builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ethermint.evm.v1.query_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'Z&github.com/evmos/ethermint/x/evm/types'
+  DESCRIPTOR._serialized_options = b'\n\024com.ethermint.evm.v1B\nQueryProtoP\001Z&github.com/evmos/ethermint/x/evm/types\242\002\003EEX\252\002\020Ethermint.Evm.V1\312\002\020Ethermint\\Evm\\V1\342\002\034Ethermint\\Evm\\V1\\GPBMetadata\352\002\022Ethermint::Evm::V1'
   _QUERYACCOUNTREQUEST._options = None
-  _QUERYACCOUNTREQUEST._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _QUERYACCOUNTREQUEST._serialized_options = b'\210\240\037\000\350\240\037\000'
   _QUERYCOSMOSACCOUNTREQUEST._options = None
-  _QUERYCOSMOSACCOUNTREQUEST._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _QUERYCOSMOSACCOUNTREQUEST._serialized_options = b'\210\240\037\000\350\240\037\000'
   _QUERYVALIDATORACCOUNTREQUEST._options = None
-  _QUERYVALIDATORACCOUNTREQUEST._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _QUERYVALIDATORACCOUNTREQUEST._serialized_options = b'\210\240\037\000\350\240\037\000'
   _QUERYBALANCEREQUEST._options = None
-  _QUERYBALANCEREQUEST._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _QUERYBALANCEREQUEST._serialized_options = b'\210\240\037\000\350\240\037\000'
   _QUERYSTORAGEREQUEST._options = None
-  _QUERYSTORAGEREQUEST._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _QUERYSTORAGEREQUEST._serialized_options = b'\210\240\037\000\350\240\037\000'
   _QUERYCODEREQUEST._options = None
-  _QUERYCODEREQUEST._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _QUERYCODEREQUEST._serialized_options = b'\210\240\037\000\350\240\037\000'
   _QUERYTXLOGSREQUEST._options = None
-  _QUERYTXLOGSREQUEST._serialized_options = b'\350\240\037\000\210\240\037\000'
+  _QUERYTXLOGSREQUEST._serialized_options = b'\210\240\037\000\350\240\037\000'
   _QUERYPARAMSRESPONSE.fields_by_name['params']._options = None
   _QUERYPARAMSRESPONSE.fields_by_name['params']._serialized_options = b'\310\336\037\000'
+  _ETHCALLREQUEST.fields_by_name['proposer_address']._options = None
+  _ETHCALLREQUEST.fields_by_name['proposer_address']._serialized_options = b'\372\336\037.github.com/cosmos/cosmos-sdk/types.ConsAddress'
   _QUERYTRACETXREQUEST.fields_by_name['block_time']._options = None
   _QUERYTRACETXREQUEST.fields_by_name['block_time']._serialized_options = b'\310\336\037\000\220\337\037\001'
+  _QUERYTRACETXREQUEST.fields_by_name['proposer_address']._options = None
+  _QUERYTRACETXREQUEST.fields_by_name['proposer_address']._serialized_options = b'\372\336\037.github.com/cosmos/cosmos-sdk/types.ConsAddress'
+  _QUERYTRACETXREQUEST.fields_by_name['base_fee']._options = None
+  _QUERYTRACETXREQUEST.fields_by_name['base_fee']._serialized_options = b'\332\336\037\025cosmossdk.io/math.Int'
+  _QUERYTRACECALLREQUEST.fields_by_name['proposer_address']._options = None
+  _QUERYTRACECALLREQUEST.fields_by_name['proposer_address']._serialized_options = b'\372\336\037.github.com/cosmos/cosmos-sdk/types.ConsAddress'
+  _QUERYTRACECALLREQUEST.fields_by_name['block_time']._options = None
+  _QUERYTRACECALLREQUEST.fields_by_name['block_time']._serialized_options = b'\310\336\037\000\220\337\037\001'
   _QUERYTRACEBLOCKREQUEST.fields_by_name['block_time']._options = None
   _QUERYTRACEBLOCKREQUEST.fields_by_name['block_time']._serialized_options = b'\310\336\037\000\220\337\037\001'
+  _QUERYTRACEBLOCKREQUEST.fields_by_name['proposer_address']._options = None
+  _QUERYTRACEBLOCKREQUEST.fields_by_name['proposer_address']._serialized_options = b'\372\336\037.github.com/cosmos/cosmos-sdk/types.ConsAddress'
   _QUERYBASEFEERESPONSE.fields_by_name['base_fee']._options = None
-  _QUERYBASEFEERESPONSE.fields_by_name['base_fee']._serialized_options = b'\332\336\037&github.com/cosmos/cosmos-sdk/types.Int'
+  _QUERYBASEFEERESPONSE.fields_by_name['base_fee']._serialized_options = b'\332\336\037\025cosmossdk.io/math.Int'
   _QUERY.methods_by_name['Account']._options = None
   _QUERY.methods_by_name['Account']._serialized_options = b'\202\323\344\223\002%\022#/ethermint/evm/v1/account/{address}'
   _QUERY.methods_by_name['CosmosAccount']._options = None
@@ -265,56 +86,62 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _QUERY.methods_by_name['TraceTx']._serialized_options = b'\202\323\344\223\002\034\022\032/ethermint/evm/v1/trace_tx'
   _QUERY.methods_by_name['TraceBlock']._options = None
   _QUERY.methods_by_name['TraceBlock']._serialized_options = b'\202\323\344\223\002\037\022\035/ethermint/evm/v1/trace_block'
+  _QUERY.methods_by_name['TraceCall']._options = None
+  _QUERY.methods_by_name['TraceCall']._serialized_options = b'\202\323\344\223\002\036\022\034/ethermint/evm/v1/trace_call'
   _QUERY.methods_by_name['BaseFee']._options = None
   _QUERY.methods_by_name['BaseFee']._serialized_options = b'\202\323\344\223\002\034\022\032/ethermint/evm/v1/base_fee'
-  _QUERYACCOUNTREQUEST._serialized_start=234
-  _QUERYACCOUNTREQUEST._serialized_end=282
-  _QUERYACCOUNTRESPONSE._serialized_start=284
-  _QUERYACCOUNTRESPONSE._serialized_end=357
-  _QUERYCOSMOSACCOUNTREQUEST._serialized_start=359
-  _QUERYCOSMOSACCOUNTREQUEST._serialized_end=413
-  _QUERYCOSMOSACCOUNTRESPONSE._serialized_start=415
-  _QUERYCOSMOSACCOUNTRESPONSE._serialized_end=509
-  _QUERYVALIDATORACCOUNTREQUEST._serialized_start=511
-  _QUERYVALIDATORACCOUNTREQUEST._serialized_end=573
-  _QUERYVALIDATORACCOUNTRESPONSE._serialized_start=575
-  _QUERYVALIDATORACCOUNTRESPONSE._serialized_end=673
-  _QUERYBALANCEREQUEST._serialized_start=675
-  _QUERYBALANCEREQUEST._serialized_end=723
-  _QUERYBALANCERESPONSE._serialized_start=725
-  _QUERYBALANCERESPONSE._serialized_end=764
-  _QUERYSTORAGEREQUEST._serialized_start=766
-  _QUERYSTORAGEREQUEST._serialized_end=827
-  _QUERYSTORAGERESPONSE._serialized_start=829
-  _QUERYSTORAGERESPONSE._serialized_end=866
-  _QUERYCODEREQUEST._serialized_start=868
-  _QUERYCODEREQUEST._serialized_end=913
-  _QUERYCODERESPONSE._serialized_start=915
-  _QUERYCODERESPONSE._serialized_end=948
-  _QUERYTXLOGSREQUEST._serialized_start=950
-  _QUERYTXLOGSREQUEST._serialized_end=1054
-  _QUERYTXLOGSRESPONSE._serialized_start=1056
-  _QUERYTXLOGSRESPONSE._serialized_end=1175
-  _QUERYPARAMSREQUEST._serialized_start=1177
-  _QUERYPARAMSREQUEST._serialized_end=1197
-  _QUERYPARAMSRESPONSE._serialized_start=1199
-  _QUERYPARAMSRESPONSE._serialized_end=1268
-  _ETHCALLREQUEST._serialized_start=1270
-  _ETHCALLREQUEST._serialized_end=1317
-  _ESTIMATEGASRESPONSE._serialized_start=1319
-  _ESTIMATEGASRESPONSE._serialized_end=1353
-  _QUERYTRACETXREQUEST._serialized_start=1356
-  _QUERYTRACETXREQUEST._serialized_end=1647
-  _QUERYTRACETXRESPONSE._serialized_start=1649
-  _QUERYTRACETXRESPONSE._serialized_end=1685
-  _QUERYTRACEBLOCKREQUEST._serialized_start=1688
-  _QUERYTRACEBLOCKREQUEST._serialized_end=1911
-  _QUERYTRACEBLOCKRESPONSE._serialized_start=1913
-  _QUERYTRACEBLOCKRESPONSE._serialized_end=1952
-  _QUERYBASEFEEREQUEST._serialized_start=1954
-  _QUERYBASEFEEREQUEST._serialized_end=1975
-  _QUERYBASEFEERESPONSE._serialized_start=1977
-  _QUERYBASEFEERESPONSE._serialized_end=2061
-  _QUERY._serialized_start=2064
-  _QUERY._serialized_end=3711
+  _globals['_QUERYACCOUNTREQUEST']._serialized_start=302
+  _globals['_QUERYACCOUNTREQUEST']._serialized_end=359
+  _globals['_QUERYACCOUNTRESPONSE']._serialized_start=361
+  _globals['_QUERYACCOUNTRESPONSE']._serialized_end=460
+  _globals['_QUERYCOSMOSACCOUNTREQUEST']._serialized_start=462
+  _globals['_QUERYCOSMOSACCOUNTREQUEST']._serialized_end=525
+  _globals['_QUERYCOSMOSACCOUNTRESPONSE']._serialized_start=528
+  _globals['_QUERYCOSMOSACCOUNTRESPONSE']._serialized_end=662
+  _globals['_QUERYVALIDATORACCOUNTREQUEST']._serialized_start=664
+  _globals['_QUERYVALIDATORACCOUNTREQUEST']._serialized_end=739
+  _globals['_QUERYVALIDATORACCOUNTRESPONSE']._serialized_start=742
+  _globals['_QUERYVALIDATORACCOUNTRESPONSE']._serialized_end=881
+  _globals['_QUERYBALANCEREQUEST']._serialized_start=883
+  _globals['_QUERYBALANCEREQUEST']._serialized_end=940
+  _globals['_QUERYBALANCERESPONSE']._serialized_start=942
+  _globals['_QUERYBALANCERESPONSE']._serialized_end=990
+  _globals['_QUERYSTORAGEREQUEST']._serialized_start=992
+  _globals['_QUERYSTORAGEREQUEST']._serialized_end=1067
+  _globals['_QUERYSTORAGERESPONSE']._serialized_start=1069
+  _globals['_QUERYSTORAGERESPONSE']._serialized_end=1113
+  _globals['_QUERYCODEREQUEST']._serialized_start=1115
+  _globals['_QUERYCODEREQUEST']._serialized_end=1169
+  _globals['_QUERYCODERESPONSE']._serialized_start=1171
+  _globals['_QUERYCODERESPONSE']._serialized_end=1210
+  _globals['_QUERYTXLOGSREQUEST']._serialized_start=1212
+  _globals['_QUERYTXLOGSREQUEST']._serialized_end=1334
+  _globals['_QUERYTXLOGSRESPONSE']._serialized_start=1337
+  _globals['_QUERYTXLOGSRESPONSE']._serialized_end=1474
+  _globals['_QUERYPARAMSREQUEST']._serialized_start=1476
+  _globals['_QUERYPARAMSREQUEST']._serialized_end=1496
+  _globals['_QUERYPARAMSRESPONSE']._serialized_start=1498
+  _globals['_QUERYPARAMSRESPONSE']._serialized_end=1575
+  _globals['_ETHCALLREQUEST']._serialized_start=1578
+  _globals['_ETHCALLREQUEST']._serialized_end=1791
+  _globals['_ESTIMATEGASRESPONSE']._serialized_start=1793
+  _globals['_ESTIMATEGASRESPONSE']._serialized_end=1877
+  _globals['_QUERYTRACETXREQUEST']._serialized_start=1880
+  _globals['_QUERYTRACETXREQUEST']._serialized_end=2414
+  _globals['_QUERYTRACETXRESPONSE']._serialized_start=2416
+  _globals['_QUERYTRACETXRESPONSE']._serialized_end=2458
+  _globals['_QUERYTRACECALLREQUEST']._serialized_start=2461
+  _globals['_QUERYTRACECALLREQUEST']._serialized_end=2852
+  _globals['_QUERYTRACECALLRESPONSE']._serialized_start=2854
+  _globals['_QUERYTRACECALLRESPONSE']._serialized_end=2898
+  _globals['_QUERYTRACEBLOCKREQUEST']._serialized_start=2901
+  _globals['_QUERYTRACEBLOCKREQUEST']._serialized_end=3299
+  _globals['_QUERYTRACEBLOCKRESPONSE']._serialized_start=3301
+  _globals['_QUERYTRACEBLOCKRESPONSE']._serialized_end=3346
+  _globals['_QUERYBASEFEEREQUEST']._serialized_start=3348
+  _globals['_QUERYBASEFEEREQUEST']._serialized_end=3369
+  _globals['_QUERYBASEFEERESPONSE']._serialized_start=3371
+  _globals['_QUERYBASEFEERESPONSE']._serialized_end=3447
+  _globals['_QUERY']._serialized_start=3450
+  _globals['_QUERY']._serialized_end=5232
 # @@protoc_insertion_point(module_scope)

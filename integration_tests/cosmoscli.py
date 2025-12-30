@@ -1948,12 +1948,14 @@ class CosmosCLI:
             home=self.data_dir,
         )
 
-    def event_query_tx_for(self, hash):
+    def event_query_tx_for(self, hash, timeout="60s"):
         return json.loads(
             self.raw(
                 "query",
                 "event-query-tx-for",
                 hash,
+                "--timeout",
+                timeout,
                 home=self.data_dir,
             )
         )

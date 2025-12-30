@@ -168,6 +168,7 @@ def approve_proposal(
     msg="/cosmos.gov.v1.MsgExecLegacyContent",
     wait_tx=True,
     broadcast_mode="sync",
+    gas="200000",
 ):
     cli = n.cosmos_cli()
 
@@ -185,6 +186,7 @@ def approve_proposal(
         "100000000basetcro",
         event_query_tx=wait_tx,
         broadcast_mode=broadcast_mode,
+        gas=gas,
     )
     assert rsp["code"] == 0, rsp["raw_log"]
     proposal = cli.query_proposal(proposal_id)

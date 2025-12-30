@@ -45,7 +45,7 @@
       in
       rec {
         packages = pkgs.cronos-matrix // {
-          inherit (pkgs) rocksdb testground-image;
+          inherit (pkgs) rocksdb testground-image cronos-image;
         };
         apps = {
           cronosd = mkApp packages.cronosd;
@@ -90,6 +90,7 @@
             bundle-exe = final.pkgsBuildBuild.callPackage nix-bundle-exe { };
           };
           testground-image = final.callPackage ./nix/testground-image.nix { };
+          cronos-image = final.callPackage ./nix/docker.nix { };
         })
       ];
     };

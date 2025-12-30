@@ -4,3 +4,6 @@
 [submodule "contracts/lib/ds-token"]
 	path = contracts/lib/ds-token
 	url = https://github.com/dapphub/ds-token
+[submodule "integration_tests/solidity-ibc-eureka"]
+	path = integration_tests/solidity-ibc-eureka
+	url = git@github.com:cosmos/solidity-ibc-eureka.git
