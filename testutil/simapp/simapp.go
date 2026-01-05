@@ -19,7 +19,7 @@ func New(dir string) *app.App {
 	db := tmdb.NewMemDB()
 	logger := log.NewNopLogger()
 
-	a := app.New(logger, db, nil, true, simtestutil.EmptyAppOptions{})
+	a := app.New(logger, db, nil, true, true, simtestutil.EmptyAppOptions{})
 	// InitChain updates deliverState which is required when app.NewContext is called
 	_, err := a.InitChain(&abci.RequestInitChain{
 		ConsensusParams: defaultConsensusParams,

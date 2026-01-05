@@ -10,7 +10,9 @@ from pystarport import cluster, ports
 from web3.middleware import ExtraDataToPOAMiddleware
 
 from .cosmoscli import CosmosCLI
-from .utils import supervisorctl, w3_wait_for_block, wait_for_port
+from .utils import edit_ini_sections, supervisorctl, w3_wait_for_block, wait_for_port
+
+SUPERVISOR_CONFIG_FILE = "tasks.ini"
 
 
 class Cronos:
@@ -195,3 +197,38 @@ def setup_custom_cronos(
         os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
         # proc.terminate()
         proc.wait()
+
+
+def post_init_absolute_home(chain_id="cronos_777-1"):
+    """
+    Create a post_init hook that modifies tasks.ini to use absolute paths for --home.
+
+    This is necessary when running tests with WasmVM (IBC 08-wasm light client) because
+    WasmVM uses an exclusive lock on its data directory. When multiple nodes start
+    simultaneously with relative paths (--home .), they might conflict before their
+    working directories are properly set.
+
+    Using absolute paths (%(here)s/node{i}) ensures each node has a unique home path
+    from the start, avoiding WasmVM lock conflicts.
+
+    Args:
+        chain_id: The chain ID (default: "cronos_777-1")
+
+    Returns:
+        A post_init function that can be passed to setup_custom_cronos
+    """
+
+    def _post_init(path, base_port, config):
+        data = path / chain_id
+
+        def update_command(i, old):
+            new_home = f"--home %(here)s/node{i}"
+            return {"command": old["command"].replace("--home .", new_home)}
+
+        edit_ini_sections(
+            chain_id,
+            data / SUPERVISOR_CONFIG_FILE,
+            update_command,
+        )
+
+    return _post_init

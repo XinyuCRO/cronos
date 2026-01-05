@@ -74,7 +74,7 @@ func setup(withGenesis bool, invCheckPeriod uint) (*App, GenesisState) {
 		server.FlagInvCheckPeriod: invCheckPeriod,
 	}
 	app := New(
-		log.NewNopLogger(), db, nil, true,
+		log.NewNopLogger(), db, nil, true, true,
 		opts,
 		baseapp.SetChainID(TestAppChainID),
 	)

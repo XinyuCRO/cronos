@@ -351,6 +351,7 @@ func New(
 	db dbm.DB,
 	traceStore io.Writer,
 	loadLatest bool,
+	skipWasmVM bool,
 	// this line is used by starport scaffolding # stargate/app/newArgument
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
@@ -754,13 +755,11 @@ func New(
 	storeProvider := clientKeeper.GetStoreProvider()
 
 	// Initialize Wasm Client Keeper after IBC Keeper is created
-	// Only initialize WasmVM when using a persistent database to avoid lock conflicts
-	// with CLI commands that also instantiate the app.
-	// MemDB is used for CLI command initialization (e.g., in cmd/root.go)
-	// and we skip WasmVM initialization in those cases to prevent the exclusive lock error.
-	isMemDB := fmt.Sprintf("%T", db) == "*db.MemDB"
-
-	if !isMemDB {
+	// Skip WasmVM initialization when skipWasmVM is true. This is used for temporary app
+	// creation during CLI initialization (see root.go NewRootCmd) where WasmVM is not needed
+	// and would cause lock conflicts if multiple processes start simultaneously with the
+	// same default home directory.
+	if !skipWasmVM {
 		// Use the same homePath that is used for all other data directories
 		// Place wasm data inside the data directory alongside other databases
 		wasmDataDir := filepath.Join(homePath, "data", "ibc_08-wasm_client_data")
@@ -798,13 +797,13 @@ func New(
 			app.GRPCQueryRouter(),
 		)
 	} else {
-		logger.Info("Skipping Wasm Client Keeper initialization for MemDB (CLI mode)")
+		logger.Info("Skipping Wasm Client Keeper initialization")
 	}
 
 	tmLightClientModule := ibctm.NewLightClientModule(appCodec, storeProvider)
 	clientKeeper.AddRoute(ibctm.ModuleName, &tmLightClientModule)
 
-	if !isMemDB {
+	if !skipWasmVM {
 		wasmLightClientModule := ibcwasm.NewLightClientModule(app.WasmClientKeeper, storeProvider)
 		clientKeeper.AddRoute(ibcwasmtypes.ModuleName, &wasmLightClientModule)
 	}
@@ -1095,7 +1094,7 @@ func New(
 	}
 
 	// must be before Loading version
-	if manager := app.SnapshotManager(); manager != nil && !isMemDB {
+	if manager := app.SnapshotManager(); manager != nil && !skipWasmVM {
 		err := manager.RegisterExtensions(
 			ibcwasmkeeper.NewWasmSnapshotter(app.CommitMultiStore(), &app.WasmClientKeeper),
 		)
@@ -1130,9 +1129,7 @@ func New(
 			app.Logger().Error("failed to update blocklist", "error", err)
 		}
 
-		// Initialize pinned codes in wasmvm as they are not persisted there
-		// Only when WasmClientKeeper is initialized (not MemDB)
-		if !isMemDB {
+		if !skipWasmVM {
 			if err := app.WasmClientKeeper.InitializePinnedCodes(ctx); err != nil {
 				tmos.Exit(fmt.Sprintf("failed initialize pinned codes %s", err))
 			}

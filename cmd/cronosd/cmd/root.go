@@ -62,7 +62,7 @@ func NewRootCmd() *cobra.Command {
 	app.SetConfig()
 
 	tempApp := app.New(
-		log.NewNopLogger(), dbm.NewMemDB(), nil, true,
+		log.NewNopLogger(), dbm.NewMemDB(), nil, true, true, // skipWasmVM=true
 		simtestutil.NewAppOptionsWithFlagHome(app.DefaultNodeHome),
 	)
 	encodingConfig := tempApp.EncodingConfig()
@@ -297,7 +297,7 @@ func newApp(
 ) servertypes.Application {
 	baseappOptions := server.DefaultBaseappOptions(appOpts)
 	return app.New(
-		logger, db, traceStore, true,
+		logger, db, traceStore, true, false, // skipWasmVM=false: actual node needs WasmVM
 		appOpts,
 		baseappOptions...,
 	)
@@ -332,13 +332,13 @@ func appExport(
 
 	var cronosApp *app.App
 	if height != -1 {
-		cronosApp = app.New(logger, db, traceStore, false, appOpts)
+		cronosApp = app.New(logger, db, traceStore, false, false, appOpts)
 
 		if err := cronosApp.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
 	} else {
-		cronosApp = app.New(logger, db, traceStore, true, appOpts)
+		cronosApp = app.New(logger, db, traceStore, true, false, appOpts)
 	}
 
 	return cronosApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)

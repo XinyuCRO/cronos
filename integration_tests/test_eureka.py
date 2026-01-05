@@ -36,7 +36,7 @@ from .eureka.eth import (
     verify_packet_commitment_removed_on_ethereum,
 )
 from .eureka.utils import get_verifier_address
-from .network import Cronos, Geth, setup_custom_cronos
+from .network import Cronos, Geth, post_init_absolute_home, setup_custom_cronos
 
 # ============================================================================
 # Type Definitions
@@ -80,18 +80,21 @@ TRANSFER_AMOUNT = 1_000_000_000
 
 
 @pytest.fixture(scope="module")
-def cronos_one_validator(tmp_path_factory):
+def cronos_eureka_validators(tmp_path_factory):
     """Cronos instance with only one validator for eureka tests"""
     path = tmp_path_factory.mktemp("eureka")
     yield from setup_custom_cronos(
-        path, 28000, Path(__file__).parent / "configs/eureka-one-validator.jsonnet"
+        path,
+        28000,
+        Path(__file__).parent / "configs/default.jsonnet",
+        post_init=post_init_absolute_home(),
     )
 
 
-def test_eureka_flow(cronos_one_validator, geth, tmp_path_factory):
+def test_eureka_flow(cronos_eureka_validators, geth, tmp_path_factory):
     context: EurekaTestContext = {
         "geth": geth,
-        "cronos": cronos_one_validator,
+        "cronos": cronos_eureka_validators,
         "contracts": None,  # type: ignore
         "wasm_checksum": "",
         "relayer_process": None,
@@ -100,7 +103,7 @@ def test_eureka_flow(cronos_one_validator, geth, tmp_path_factory):
         "eth_client_id": "",
     }
 
-    cronos = cronos_one_validator
+    cronos = cronos_eureka_validators
 
     deploy_ibc_contracts_to_eth(context, EUREKA_DIR, KEYS, ADDRS)
     assert context["contracts"] is not None
